@@ -1,0 +1,120 @@
+main {
+  padding: 40px 60px;
+  min-height: 80vh;
+}
+
+@media (max-width: 768px) {
+  main {
+    padding: 20px;
+  }
+}
+/* ===== HERO SECTION ===== */
+.hero-section {
+  position: relative;
+  background-image: url('https://images.unsplash.com/photo-1449426468159-d96dbf08f19f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bW90b3JiaWtlfGVufDB8fDB8fHww&fm=jpg&q=60&w=3000');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 90vh;
+}
+
+.hero-section .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.hero-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  color: #fff;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  color: #ddd;
+}
+
+.hero-section .btn-primary {
+  background-color: #2563eb;
+  border: none;
+  padding: 12px 30px;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+
+.hero-section .btn-primary:hover {
+  background-color: #1e40af;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    height: 70vh;
+  }
+  .hero-section h1 {
+    font-size: 2.2rem;
+  }
+  .hero-section p {
+    font-size: 1rem;
+  }
+}
+
+
+/* ===== CONTACT PAGE STYLES ===== */
+.contact-header {
+  position: relative;
+  background-image: url('../images/contact-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-header .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.contact-header .container {
+  position: relative;
+  z-index: 2;
+}
+
+.contact-header h1,
+.contact-header p {
+  color: #fff;
+}
+
+.card {
+  border-radius: 12px;
+}
+
+.form-control:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.25);
+}
+
+.btn-primary {
+  background-color: #2563eb;
+  border: none;
+  transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #1e40af;
+}
