@@ -10,37 +10,49 @@
     @endif
   </h2>
 
-  <div class="mb-3 text-start mx-auto" style="max-width: 400px;">
-    <label class="form-label">Preferred Date</label>
-    <input type="date" id="bookingDate" class="form-control">
+  <div class="card shadow-sm mx-auto p-4" style="max-width: 400px;">
+    <div class="mb-3 text-start">
+      <label class="form-label">Preferred Date</label>
+      <input type="date" id="bookingDate" class="form-control">
+    </div>
+
+    <div class="mb-3 text-start">
+      <label class="form-label">Preferred Time</label>
+      <input type="time" id="bookingTime" class="form-control">
+    </div>
+
+    <button onclick="addBookingToCart()" class="btn btn-primary w-100">Add Booking to Cart</button>
   </div>
 
-  <button onclick="addBookingToCart()" class="btn btn-primary w-100" style="max-width: 400px;">Add Booking to Cart</button>
-
-  
+  <div class="mt-4">
+    <a href="/services" class="btn btn-outline-secondary">Back to Services</a>
+    <a href="/cart" class="btn btn-success ms-2">Go to Cart</a>
+  </div>
 </div>
 
 <script>
 function addBookingToCart() {
   let name = document.getElementById('serviceName').textContent.trim();
   let date = document.getElementById('bookingDate').value;
-  let price = 2500; // default price (you can adjust or pass from URL later)
+  let time = document.getElementById('bookingTime').value;
+  let price = 2500; // default or pass dynamically
 
-  if (!date) {
-    alert("Please select a date before adding to cart!");
+  if (!date || !time) {
+    alert("Please select both date and time before adding to cart!");
     return;
   }
 
-  // Retrieve current cart
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-  // Add new booking
-  cart.push({ name: name + " (Booking: " + date + ")", price: price });
+  // Include both date and time in description
+  cart.push({ 
+    name: `${name} (Booking: ${date} at ${time})`, 
+    price: price 
+  });
 
-  // Save back to localStorage
   localStorage.setItem('cart', JSON.stringify(cart));
 
-  alert("Booking for " + name + " on " + date + " added to cart!");
+  alert(`Booking for ${name} on ${date} at ${time} added to cart!`);
 }
 </script>
 @endsection

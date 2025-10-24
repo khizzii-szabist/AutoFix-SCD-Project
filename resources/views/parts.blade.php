@@ -10,32 +10,32 @@
         [
           'name' => 'Battery',
           'price' => 7000,
-          'image' => 'https://images.unsplash.com/photo-1615397349754-9bca29e61ab2?auto=format&fit=crop&w=800&q=60'
+          'image' => 'https://static.vecteezy.com/system/resources/thumbnails/055/768/265/small/motorcycle-battery-on-a-white-background-photo.jpg'
         ],
         [
           'name' => 'Brake Pads',
           'price' => 2500,
-          'image' => 'https://images.unsplash.com/photo-1621391947747-2581bdb1e7e0?auto=format&fit=crop&w=800&q=60'
+          'image' => 'https://www.sparify.co/cdn/shop/products/20221215_000704_0000.png?v=1671043199&width=533'
         ],
         [
           'name' => 'Headlight',
           'price' => 1200,
-          'image' => 'https://images.unsplash.com/photo-1603575448363-9c595e4f1b2b?auto=format&fit=crop&w=800&q=60'
+          'image' => 'https://www.roadiesstore.com/wp-content/uploads/2020/02/4_Motorcycle-Dominator-Grill-Twins-Dual-Headlight-Streetfighter-Double-Headlamp-For-Harley-Cafe-Racer-Honda-Yamaha-Custom-1-300x300.jpg'
         ],
         [
           'name' => 'Chain Set',
           'price' => 3500,
-          'image' => 'https://images.unsplash.com/photo-1589739906069-24e6c9e0d3a1?auto=format&fit=crop&w=800&q=60'
+          'image' => 'https://i.ebayimg.com/images/g/CckAAOSwyZlnofY2/s-l400.jpg'
         ],
         [
           'name' => 'Tyre',
           'price' => 5500,
-          'image' => 'https://images.unsplash.com/photo-1620398611264-9b9b6c4b7ed8?auto=format&fit=crop&w=800&q=60'
+          'image' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBNCrtAkLzSxx2JEoT-pqLmvQQV-B8etLV5A&s'
         ],
         [
           'name' => 'Spark Plug',
           'price' => 800,
-          'image' => 'https://images.unsplash.com/photo-1631939839913-0a2b3b061e11?auto=format&fit=crop&w=800&q=60'
+          'image' => 'https://image.made-in-china.com/202f0j00WnNlbywzGdup/High-Quality-Motorbike-Genuine-LG-12cm-Spark-Plug-D8TC-or-100cc-150cc-200cc-Classic-Motorcycle-ATV-Dirt-Bike-Accessories.webp'
         ],
       ];
     @endphp

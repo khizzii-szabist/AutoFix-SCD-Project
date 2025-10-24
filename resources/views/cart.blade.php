@@ -24,12 +24,29 @@
 
       <h5 class="mt-4 mb-2 fw-bold">Payment Method</h5>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="payment" id="cod" value="Cash on Delivery" checked>
+        <input class="form-check-input" type="radio" name="payment" id="cod" value="Cash on Delivery" checked onchange="toggleCardFields()">
         <label class="form-check-label" for="cod">Cash on Delivery</label>
       </div>
       <div class="form-check mb-3">
-        <input class="form-check-input" type="radio" name="payment" id="card" value="Credit/Debit Card">
+        <input class="form-check-input" type="radio" name="payment" id="card" value="Credit/Debit Card" onchange="toggleCardFields()">
         <label class="form-check-label" for="card">Credit/Debit Card</label>
+      </div>
+
+      <!-- Hidden card details section -->
+      <div id="cardDetails" style="display:none;">
+        <h6 class="fw-bold mt-3">Card Details</h6>
+        <div class="mb-2">
+          <label class="form-label">Card Number</label>
+          <input type="text" id="cardNumber" class="form-control" placeholder="xxxx-xxxx-xxxx-xxxx">
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Expiry Date</label>
+          <input type="month" id="expiryDate" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">CVV</label>
+          <input type="password" id="cvv" class="form-control" maxlength="3" placeholder="123">
+        </div>
       </div>
 
       <div class="text-center mt-4">
@@ -78,6 +95,11 @@ function clearCart() {
   loadCart();
 }
 
+function toggleCardFields() {
+  const cardSelected = document.getElementById('card').checked;
+  document.getElementById('cardDetails').style.display = cardSelected ? 'block' : 'none';
+}
+
 function checkout() {
   const name = document.getElementById('name').value.trim();
   const phone = document.getElementById('phone').value.trim();
@@ -89,19 +111,30 @@ function checkout() {
     return;
   }
 
+  if (payment === "Credit/Debit Card") {
+    const cardNumber = document.getElementById('cardNumber').value.trim();
+    const expiryDate = document.getElementById('expiryDate').value;
+    const cvv = document.getElementById('cvv').value.trim();
+
+    if (!cardNumber || !expiryDate || !cvv) {
+      alert("Please fill in all card details.");
+      return;
+    }
+  }
+
   const order = {
     customer: { name, phone, address, payment },
     items: JSON.parse(localStorage.getItem('cart')) || [],
     date: new Date().toLocaleString()
   };
 
-  // Save order temporarily (you can later send to backend)
   localStorage.setItem('lastOrder', JSON.stringify(order));
 
   alert("✅ Thank you " + name + "! Your order has been placed successfully.");
   localStorage.removeItem('cart');
   loadCart();
 }
+
 loadCart();
 </script>
 @endsection

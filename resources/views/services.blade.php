@@ -8,7 +8,7 @@
     @php
       $services = [
         [
-          'name' => 'Vehicle Maintenance & Repair Services',
+          'name' => 'Maintenance & Repair Services',
           'price' => 5000,
           'image' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEYwYNwJysJlrHMbg-vuJdpLAUheWUzw7eqpwYUy4ULw4oBRITBgHdjtAAyE55AZUWEWs&usqp=CAU'
         ],
