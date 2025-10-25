@@ -73,14 +73,29 @@ function loadCart() {
   }
 
   let total = 0;
-  let table = `<table class='table table-bordered text-center'>
+  let table = `<table class='table table-bordered text-center align-middle'>
     <thead class='table-dark'>
-      <tr><th>#</th><th>Item</th><th>Price (Rs)</th></tr>
+      <tr><th>#</th><th>Item</th><th>Price (Rs)</th><th>Quantity</th><th>Subtotal</th><th>Action</th></tr>
     </thead><tbody>`;
 
   cart.forEach((item, index) => {
-    total += item.price;
-    table += `<tr><td>${index + 1}</td><td>${item.name}</td><td>${item.price}</td></tr>`;
+    let subtotal = item.price * (item.quantity || 1);
+    total += subtotal;
+    table += `
+      <tr>
+        <td>${index + 1}</td>
+        <td>${item.name}</td>
+        <td>${item.price}</td>
+        <td>
+          <input type='number' min='1' value='${item.quantity || 1}' class='form-control text-center' 
+                 style='width:80px; display:inline-block;' 
+                 onchange='updateQuantity(${index}, this.value)'>
+        </td>
+        <td>${subtotal}</td>
+        <td>
+          <button class='btn btn-sm btn-outline-danger' onclick='deleteItem(${index})'>Delete</button>
+        </td>
+      </tr>`;
   });
 
   table += `</tbody></table>
@@ -90,6 +105,28 @@ function loadCart() {
   checkoutSection.style.display = "block";
 }
 
+// ✅ Update quantity in cart
+function updateQuantity(index, newQty) {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  newQty = parseInt(newQty);
+  if (newQty < 1 || isNaN(newQty)) {
+    alert("Quantity must be at least 1");
+    return;
+  }
+  cart[index].quantity = newQty;
+  localStorage.setItem('cart', JSON.stringify(cart));
+  loadCart(); // refresh table
+}
+
+// ✅ Delete a single item
+function deleteItem(index) {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cart.splice(index, 1);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  loadCart();
+}
+
+// ✅ Clear entire cart
 function clearCart() {
   localStorage.removeItem('cart');
   loadCart();
