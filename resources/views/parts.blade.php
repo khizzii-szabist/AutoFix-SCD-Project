@@ -55,12 +55,18 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 function addToCart(name, price) {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
   cart.push({ name: name, price: price });
   localStorage.setItem('cart', JSON.stringify(cart));
-  alert(name + ' added to cart!');
+  // alert(name + ' added to cart!');
+  Swal.fire({
+  title: "Added To Cart!",
+  text: `${name} of RS.${price} added to cart!`,
+  icon: "success"
+});
 }
 </script>
 @endsection

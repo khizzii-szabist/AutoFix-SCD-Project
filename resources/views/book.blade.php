@@ -30,6 +30,7 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 function addBookingToCart() {
   let name = document.getElementById('serviceName').textContent.trim();
@@ -38,7 +39,8 @@ function addBookingToCart() {
   let price = 2500; // default or pass dynamically
 
   if (!date || !time) {
-    alert("Please select both date and time before adding to cart!");
+    //alert("Please select both date and time before adding to cart!");
+    Swal.fire("Please select both date and time before adding to cart!");
     return;
   }
 

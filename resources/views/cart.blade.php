@@ -60,6 +60,7 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 function loadCart() {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -144,7 +145,8 @@ function checkout() {
   const payment = document.querySelector('input[name="payment"]:checked').value;
 
   if (!name || !phone || !address) {
-    alert("Please fill in all delivery details.");
+    //alert("Please fill in all delivery details.");
+    Swal.fire("Please fill in all delivery details.");
     return;
   }
 
@@ -167,7 +169,12 @@ function checkout() {
 
   localStorage.setItem('lastOrder', JSON.stringify(order));
 
-  alert("✅ Thank you " + name + "! Your order has been placed successfully.");
+  //alert("✅ Thank you " + name + "! Your order has been placed successfully.");
+  Swal.fire({
+  title: "✅ Thank you " + name + "! Your order has been placed successfully.",
+  icon: "success",
+  draggable: true
+});
   localStorage.removeItem('cart');
   loadCart();
 }
