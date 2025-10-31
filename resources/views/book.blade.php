@@ -54,7 +54,8 @@ function addBookingToCart() {
 
   localStorage.setItem('cart', JSON.stringify(cart));
 
-  alert(`Booking for ${name} on ${date} at ${time} added to cart!`);
+  // alert(`Booking for ${name} on ${date} at ${time} added to cart!`);
+  Swal.fire(`Booking for ${name} on ${date} at ${time} added to cart!`);
 }
 </script>
 @endsection

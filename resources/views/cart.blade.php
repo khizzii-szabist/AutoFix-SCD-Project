@@ -10,6 +10,8 @@
         <tr>
           <th>Product</th>
           <th>Price (Rs)</th>
+          <th>Quantity</th>
+          <th>Subtotal (Rs)</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -33,21 +35,43 @@ function loadCart() {
   tableBody.innerHTML = '';
 
   if (cart.length === 0) {
-    tableBody.innerHTML = `<tr><td colspan="3" class="text-center text-muted">Your cart is empty.</td></tr>`;
+    tableBody.innerHTML = `<tr><td colspan="5" class="text-center text-muted">Your cart is empty.</td></tr>`;
+    document.getElementById('cart-total').innerText = 0;
     return;
   }
 
   cart.forEach((item, index) => {
-    total += item.price;
+    let subtotal = item.price * (item.quantity || 1);
+    total += subtotal;
+
     tableBody.innerHTML += `
       <tr>
         <td>${item.name}</td>
         <td>${item.price}</td>
-        <td><button class="btn btn-sm btn-outline-danger" onclick="removeItem(${index})">Remove</button></td>
+        <td>
+          <input type="number" min="1" value="${item.quantity || 1}" 
+            class="form-control text-center" style="width:80px; margin:auto;"
+            onchange="updateQuantity(${index}, this.value)">
+        </td>
+        <td>${subtotal}</td>
+        <td>
+          <button class="btn btn-sm btn-outline-danger" onclick="removeItem(${index})">Remove</button>
+        </td>
       </tr>`;
   });
 
   document.getElementById('cart-total').innerText = total;
+}
+
+function updateQuantity(index, newQuantity) {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  newQuantity = parseInt(newQuantity);
+
+  if (newQuantity < 1) newQuantity = 1;
+
+  cart[index].quantity = newQuantity;
+  localStorage.setItem('cart', JSON.stringify(cart));
+  loadCart();
 }
 
 function removeItem(index) {
