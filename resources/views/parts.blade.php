@@ -17,7 +17,7 @@
           <h5 class="card-title">Battery</h5>
           <p class="card-text text-muted">Rs 7,000</p>
           <button class="btn btn-primary btn-sm" onclick="addToCart('Battery', 7000)">Add to Cart</button>
-          <a href="{{ url('/battery') }}" class="btn btn-outline-secondary btn-sm mt-2">View More</a>
+          <a href="{{ url('/battery') }}" class="btn btn-outline-secondary btn-sm ">View More</a>
         </div>
       </div>
     </div>
@@ -33,7 +33,7 @@
           <h5 class="card-title">Brake Pads</h5>
           <p class="card-text text-muted">Rs 2,500</p>
           <button class="btn btn-primary btn-sm" onclick="addToCart('Brake Pads', 2500)">Add to Cart</button>
-          <a href="{{ url('/brake-pads') }}" class="btn btn-outline-secondary btn-sm mt-2">View More</a>
+          <a href="{{ url('/brake-pads') }}" class="btn btn-outline-secondary btn-sm ">View More</a>
         </div>
       </div>
     </div>
@@ -49,7 +49,7 @@
           <h5 class="card-title">Headlight</h5>
           <p class="card-text text-muted">Rs 1,200</p>
           <button class="btn btn-primary btn-sm" onclick="addToCart('Headlight', 1200)">Add to Cart</button>
-          <a href="{{ url('/headlight') }}" class="btn btn-outline-secondary btn-sm mt-2">View More</a>
+          <a href="{{ url('/headlight') }}" class="btn btn-outline-secondary btn-sm ">View More</a>
         </div>
       </div>
     </div>
@@ -65,7 +65,7 @@
           <h5 class="card-title">Chain Set</h5>
           <p class="card-text text-muted">Rs 3,500</p>
           <button class="btn btn-primary btn-sm" onclick="addToCart('Chain Set', 3500)">Add to Cart</button>
-          <a href="{{ url('/chain-set') }}" class="btn btn-outline-secondary btn-sm mt-2">View More</a>
+          <a href="{{ url('/chain-set') }}" class="btn btn-outline-secondary btn-sm ">View More</a>
         </div>
       </div>
     </div>
@@ -81,7 +81,7 @@
           <h5 class="card-title">Tyre</h5>
           <p class="card-text text-muted">Rs 5,500</p>
           <button class="btn btn-primary btn-sm" onclick="addToCart('Tyre', 5500)">Add to Cart</button>
-          <a href="{{ url('/tyre') }}" class="btn btn-outline-secondary btn-sm mt-2">View More</a>
+          <a href="{{ url('/tyre') }}" class="btn btn-outline-secondary btn-sm ">View More</a>
         </div>
       </div>
     </div>
@@ -97,7 +97,7 @@
           <h5 class="card-title">Spark Plug</h5>
           <p class="card-text text-muted">Rs 800</p>
           <button class="btn btn-primary btn-sm" onclick="addToCart('Spark Plug', 800)">Add to Cart</button>
-          <a href="{{ url('/spark-plug') }}" class="btn btn-outline-secondary btn-sm mt-2">View More</a>
+          <a href="{{ url('/spark-plug') }}" class="btn btn-outline-secondary btn-sm ">View More</a>
         </div>
       </div>
     </div>
