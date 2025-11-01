@@ -125,12 +125,21 @@ function handleCheckout(event) {
   }
 
   localStorage.removeItem('cart');
-  Swal.fire({
-    title: "Order Placed Successfully!",
-    text: "Thank you for shopping with us.",
-    icon: "success"
-  });
-  return true;
+  event.preventDefault(); // Stop form from submitting normally
+localStorage.removeItem('cart');
+
+Swal.fire({
+  title: "Order Placed Successfully!",
+  text: "Redirecting you to the thank you page...",
+  icon: "success",
+  showConfirmButton: false,
+  timer: 2000
+});
+
+setTimeout(() => {
+  window.location.href = "{{ route('thankyou') }}";
+}, 2000);
+
 }
 
 window.onload = loadCheckoutTotal;

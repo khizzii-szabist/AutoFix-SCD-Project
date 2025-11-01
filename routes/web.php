@@ -47,3 +47,12 @@ Route::get('/book', function () {
 Route::get('/battery', function () {
     return view('battery');
 });
+
+Route::get('/thankyou', function () {
+    return view('thankyou');
+})->name('thankyou');
+
+// Home page route
+Route::get('/', function () {
+    return view('home'); // matches your home.blade.php
+})->name('home');
