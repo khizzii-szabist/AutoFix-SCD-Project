@@ -4,11 +4,12 @@
 <div class="container my-5 text-center">
   <h2 class="fw-bold mb-4">Available Parts</h2>
 
+  <div class="row">
     @foreach ($products as $product)
     <div class="col-md-4 mb-4">
       <div class="card shadow-sm h-100 border-0">
           <a href="{{ route('product.detail', $product->id) }}">
-            <img src="/images/{{ $product->image }}" 
+            <img src="{{ filter_var($product->image, FILTER_VALIDATE_URL) ? $product->image : '/images/' . $product->image }}" 
                  class="card-img-top" alt="{{ $product->name }}" style="height:200px; object-fit:cover;">
           </a>
           <div class="card-body">

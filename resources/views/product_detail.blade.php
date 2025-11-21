@@ -4,7 +4,7 @@
 <div class="container my-5">
     <div class="row">
         <div class="col-md-6">
-            <img src="/images/{{ $product->image }}" class="img-fluid rounded shadow" alt="{{ $product->name }}" style="width: 100%; height: 400px; object-fit: cover;">
+            <img src="{{ filter_var($product->image, FILTER_VALIDATE_URL) ? $product->image : '/images/' . $product->image }}" class="img-fluid rounded shadow" alt="{{ $product->name }}" style="width: 100%; height: 400px; object-fit: cover;">
         </div>
         <div class="col-md-6">
             <h1 class="fw-bold">{{ $product->name }}</h1>

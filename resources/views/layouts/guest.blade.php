@@ -13,41 +13,31 @@
 
         <!-- Tailwind CDN -->
         <script src="https://cdn.tailwindcss.com"></script>
-        <script>
-            tailwind.config = {
-                theme: {
-                    extend: {
-                        colors: {
-                            primary: '#4f46e5',
-                            secondary: '#10b981',
-                        }
-                    }
-                }
-            }
-        </script>
         <style>
-            .glass-effect {
-                background: rgba(255, 255, 255, 0.95);
-                backdrop-filter: blur(10px);
-                border: 1px solid rgba(255, 255, 255, 0.2);
-            }
-            .dark .glass-effect {
-                background: rgba(31, 41, 55, 0.9);
-                border: 1px solid rgba(255, 255, 255, 0.05);
+            body {
+                font-family: 'Figtree', sans-serif;
             }
         </style>
     </head>
-    <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
-            <div>
+    <body class="antialiased">
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+            <div class="mb-6">
                 <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-white drop-shadow-lg" />
+                    <div class="flex items-center gap-2">
+                        <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                            <span class="text-white font-bold text-2xl">P</span>
+                        </div>
+                        <span class="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Product Manager</span>
+                    </div>
                 </a>
             </div>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-8 glass-effect shadow-2xl overflow-hidden sm:rounded-xl transform transition-all hover:scale-[1.01]">
+            <div class="w-full sm:max-w-md px-8 py-10 bg-white shadow-xl rounded-2xl border border-gray-100">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Welcome Back</h2>
                 {{ $slot }}
             </div>
+            
+            <p class="mt-6 text-sm text-gray-500">© 2025 Product Manager. All rights reserved.</p>
         </div>
     </body>
 </html>
