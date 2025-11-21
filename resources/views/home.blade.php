@@ -52,34 +52,18 @@
   </div>
 
   <div class="row justify-content-center">
-    @php
-      $products = [
-        [
-          'name' => 'Battery',
-          'price' => 7000,
-          'image' => 'https://static.vecteezy.com/system/resources/thumbnails/055/768/265/small/motorcycle-battery-on-a-white-background-photo.jpg'
-        ],
-        [
-          'name' => 'Headlight',
-          'price' => 1200,
-          'image' => 'https://www.roadiesstore.com/wp-content/uploads/2020/02/4_Motorcycle-Dominator-Grill-Twins-Dual-Headlight-Streetfighter-Double-Headlamp-For-Harley-Cafe-Racer-Honda-Yamaha-Custom-1-300x300.jpg'
-        ],
-        [
-          'name' => 'Tyre',
-          'price' => 5500,
-          'image' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBNCrtAkLzSxx2JEoT-pqLmvQQV-B8etLV5A&s'
-        ],
-      ];
-    @endphp
-
     @foreach($products as $product)
       <div class="col-md-4 mb-4">
         <div class="card shadow-sm border-0 h-100 text-center">
-          <img src="{{ $product['image'] }}" class="card-img-top" alt="{{ $product['name'] }}" style="height:220px; object-fit:cover;">
+          <a href="{{ route('product.detail', $product->id) }}">
+            <img src="/images/{{ $product->image }}" class="card-img-top" alt="{{ $product->name }}" style="height:220px; object-fit:cover;">
+          </a>
           <div class="card-body">
-            <h5 class="card-title">{{ $product['name'] }}</h5>
-            <p class="card-text text-muted">Rs {{ number_format($product['price']) }}</p>
-            <button class="btn btn-primary btn-sm" onclick="addToCart('{{ $product['name'] }}', {{ $product['price'] }})">Add to Cart</button>
+            <a href="{{ route('product.detail', $product->id) }}" class="text-decoration-none text-dark">
+              <h5 class="card-title">{{ $product->name }}</h5>
+            </a>
+            <p class="card-text text-muted">Rs {{ number_format($product->price) }}</p>
+            <button class="btn btn-primary btn-sm" onclick="addToCart('{{ $product->name }}', {{ $product->price }})">Add to Cart</button>
           </div>
         </div>
       </div>
