@@ -12,9 +12,7 @@ Route::get('/', function () {
     return view('home', compact('products'));
 })->name('home');
 
-Route::get('/services', function () {
-    return view('services');
-});
+Route::get('/services', [App\Http\Controllers\ServiceController::class, 'frontend'])->name('services');
 
 Route::get('/contact', function () {
     return view('contact');
@@ -46,6 +44,7 @@ Route::get('/product/{id}', [ProductController::class, 'showDetail'])->name('pro
 
 Route::middleware('auth')->group(function () {
     Route::resource('products', ProductController::class);
+    Route::resource('admin/services', App\Http\Controllers\ServiceController::class)->names('admin.services');
 });
 
 Route::get('/dashboard', function () {

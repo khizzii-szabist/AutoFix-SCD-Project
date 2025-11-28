@@ -90,7 +90,7 @@
     <body>
         <div class="header">
             <h1>My Product Store</h1>
-            <a href="{{ route('products.index') }}">Admin Panel</a>
+            <a href="{{ route('dashboard') }}">Admin Panel</a>
         </div>
 
         <div class="container">

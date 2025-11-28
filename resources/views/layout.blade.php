@@ -33,7 +33,7 @@
           <li class="nav-item"><a class="nav-link" href="{{ url('/services') }}">Services</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ url('/parts') }}">Parts</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ url('/contact') }}">Contact</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ route('products.index') }}">Admin Panel</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}">Admin Panel</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ route('cart') }}">Cart</a></li>
 
         </ul>
