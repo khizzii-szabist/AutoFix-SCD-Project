@@ -48,12 +48,20 @@ AutoFix is a comprehensive web application developed for the SCD Theory Final Pr
 -   **Customer**:
     -   Go to `/parts` to search and buy components.
     -   Go to `/services` to book maintenance.
-    -   Use the Search Bar in the navbar for quick product access.
+    -   Use the Search Bar on the Parts page (`/parts`) for quick product access.
 
 ## API Documentation
 The application exposes the following API endpoints:
 -   `GET /api/products`: List all products.
+-   `POST /api/products`: Create a new product.
+-   `GET /api/products/{id}`: Get specific product details.
+-   `PUT/PATCH /api/products/{id}`: Update a product.
+-   `DELETE /api/products/{id}`: Delete a product.
 -   `GET /api/services`: List all services.
+-   `POST /api/services`: Create a new service.
+-   `GET /api/services/{id}`: Get specific service details.
+-   `PUT/PATCH /api/services/{id}`: Update a service.
+-   `DELETE /api/services/{id}`: Delete a service.
 
 ## Credits
-Developed by [Your Name] for SCD Final Project.
+Developed by Khizar Iqbal Fazil for SCD Final Project.
