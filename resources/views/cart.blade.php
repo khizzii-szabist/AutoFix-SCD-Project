@@ -1,31 +1,39 @@
 @extends('layout')
 
 @section('content')
-<div class="container my-5">
-  <h2 class="fw-bold mb-4 text-center">🛒 Your Shopping Cart</h2>
+<section class="container my-5 pb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div class="card p-4 border-0">
+        <h2 class="fw-bold mb-4 text-center text-white">🛒 Your <span class="text-primary">Shopping Cart</span></h2>
 
-  <div id="cart-container" class="text-center">
-    <table class="table table-bordered align-middle">
-      <thead class="table-light">
-        <tr>
-          <th>Product</th>
-          <th>Price (Rs)</th>
-          <th>Quantity</th>
-          <th>Subtotal (Rs)</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody id="cart-items"></tbody>
-    </table>
+        <div id="cart-container" class="text-center">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Price (Rs)</th>
+                  <th>Quantity</th>
+                  <th>Subtotal (Rs)</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="cart-items"></tbody>
+            </table>
+          </div>
 
-    <h4 class="mt-3">Total: Rs <span id="cart-total">0</span></h4>
+          <h4 class="mt-4 mb-4 text-end text-white">Total: <span class="text-accent">Rs <span id="cart-total">0</span></span></h4>
 
-    <div class="mt-4">
-      <a href="{{ route('checkout') }}" class="btn btn-primary">Proceed to Checkout</a>
-      <button class="btn btn-danger" onclick="clearCart()">Clear Cart</button>
+          <div class="d-flex justify-content-end gap-3">
+            <button class="btn btn-outline-danger" onclick="clearCart()">Clear Cart</button>
+            <a href="{{ route('checkout') }}" class="btn btn-primary px-4">Proceed to Checkout</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
 <script>
 function loadCart() {
@@ -50,7 +58,7 @@ function loadCart() {
         <td>${item.price}</td>
         <td>
           <input type="number" min="1" value="${item.quantity || 1}" 
-            class="form-control text-center" style="width:80px; margin:auto;"
+            class="form-control text-center" style="width:80px; margin:auto; color: #000; font-weight: bold;"
             onchange="updateQuantity(${index}, this.value)">
         </td>
         <td>${subtotal}</td>

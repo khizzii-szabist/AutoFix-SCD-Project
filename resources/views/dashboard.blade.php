@@ -1,5 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
+        <!-- Dashboard Header -->
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Admin Dashboard') }}
         </h2>
@@ -27,58 +28,62 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 
                 <!-- Product Management Card -->
-                <a href="{{ route('products.index') }}" class="group">
-                    <div class="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                        <div class="p-8 text-white">
-                            <div class="flex items-center justify-between mb-4">
-                                <div class="w-16 h-16 bg-white bg-opacity-20 rounded-lg flex items-center justify-center backdrop-blur-sm">
-                                    <i class="fas fa-box-open text-3xl"></i>
-                                </div>
-                                <i class="fas fa-arrow-right text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold mb-2">Product Management</h3>
-                            <p class="text-blue-100 mb-4">Manage your bike parts inventory</p>
-                            <div class="flex items-center gap-4 text-sm">
-                                <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full backdrop-blur-sm">
-                                    <i class="fas fa-plus mr-1"></i> Add Products
-                                </span>
-                                <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full backdrop-blur-sm">
-                                    <i class="fas fa-edit mr-1"></i> Edit & Delete
-                                </span>
+                <div class="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:shadow-2xl group">
+                    <div class="p-8 text-white">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-16 h-16 bg-white bg-opacity-20 rounded-lg flex items-center justify-center backdrop-blur-sm">
+                                <i class="fas fa-box-open text-3xl"></i>
                             </div>
                         </div>
-                        <div class="bg-white bg-opacity-10 px-8 py-4 backdrop-blur-sm">
-                            <p class="text-sm text-white font-semibold">Click to manage products →</p>
+                        <a href="{{ route('products.index') }}" class="block">
+                            <h3 class="text-2xl font-bold mb-2 hover:underline">Product Management</h3>
+                        </a>
+                        <p class="text-blue-100 mb-4">Manage your bike parts inventory</p>
+                        <div class="flex items-center gap-4 text-sm">
+                            <a href="{{ route('products.create') }}" class="bg-white bg-opacity-20 px-3 py-1 rounded-full backdrop-blur-sm hover:bg-white hover:text-blue-600 transition">
+                                <i class="fas fa-plus mr-1"></i> Add Products
+                            </a>
+                            <a href="{{ route('products.index') }}" class="bg-white bg-opacity-20 px-3 py-1 rounded-full backdrop-blur-sm hover:bg-white hover:text-blue-600 transition">
+                                <i class="fas fa-edit mr-1"></i> Edit & Delete
+                            </a>
                         </div>
                     </div>
-                </a>
+                    <a href="{{ route('products.index') }}" class="block bg-white bg-opacity-10 px-8 py-4 backdrop-blur-sm hover:bg-opacity-20 transition">
+                        <div class="flex justify-between items-center">
+                            <p class="text-sm text-white font-semibold">Click to manage products</p>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                </div>
 
                 <!-- Service Management Card -->
-                <a href="{{ route('admin.services.index') }}" class="group">
-                    <div class="bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                        <div class="p-8 text-white">
-                            <div class="flex items-center justify-between mb-4">
-                                <div class="w-16 h-16 bg-white bg-opacity-20 rounded-lg flex items-center justify-center backdrop-blur-sm">
-                                    <i class="fas fa-tools text-3xl"></i>
-                                </div>
-                                <i class="fas fa-arrow-right text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold mb-2">Service Management</h3>
-                            <p class="text-purple-100 mb-4">Manage your bike services</p>
-                            <div class="flex items-center gap-4 text-sm">
-                                <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full backdrop-blur-sm">
-                                    <i class="fas fa-plus mr-1"></i> Add Services
-                                </span>
-                                <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full backdrop-blur-sm">
-                                    <i class="fas fa-edit mr-1"></i> Edit & Delete
-                                </span>
+                <div class="bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:shadow-2xl group">
+                    <div class="p-8 text-white">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-16 h-16 bg-white bg-opacity-20 rounded-lg flex items-center justify-center backdrop-blur-sm">
+                                <i class="fas fa-tools text-3xl"></i>
                             </div>
                         </div>
-                        <div class="bg-white bg-opacity-10 px-8 py-4 backdrop-blur-sm">
-                            <p class="text-sm text-white font-semibold">Click to manage services →</p>
+                        <a href="{{ route('admin.services.index') }}" class="block">
+                            <h3 class="text-2xl font-bold mb-2 hover:underline">Service Management</h3>
+                        </a>
+                        <p class="text-purple-100 mb-4">Manage your bike services</p>
+                        <div class="flex items-center gap-4 text-sm">
+                            <a href="{{ route('admin.services.create') }}" class="bg-white bg-opacity-20 px-3 py-1 rounded-full backdrop-blur-sm hover:bg-white hover:text-purple-600 transition">
+                                <i class="fas fa-plus mr-1"></i> Add Services
+                            </a>
+                            <a href="{{ route('admin.services.index') }}" class="bg-white bg-opacity-20 px-3 py-1 rounded-full backdrop-blur-sm hover:bg-white hover:text-purple-600 transition">
+                                <i class="fas fa-edit mr-1"></i> Edit & Delete
+                            </a>
                         </div>
                     </div>
-                </a>
+                    <a href="{{ route('admin.services.index') }}" class="block bg-white bg-opacity-10 px-8 py-4 backdrop-blur-sm hover:bg-opacity-20 transition">
+                        <div class="flex justify-between items-center">
+                            <p class="text-sm text-white font-semibold">Click to manage services</p>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                </div>
 
             </div>
 

@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Create 'products' table for inventory management
         Schema::create('products', function (Blueprint $table) {
-            $table->id();
+            $table->id(); // Primary Key
             $table->string('name');
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
             $table->integer('stock')->default(0);
-            $table->string('image')->nullable();
+            $table->string('image')->nullable(); // Stores filename
             $table->timestamps();
         });
     }

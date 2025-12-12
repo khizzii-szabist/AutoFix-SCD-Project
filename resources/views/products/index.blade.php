@@ -1,87 +1,106 @@
-@extends('products.layout')
- 
+@extends('layout')
+
 @section('content')
+<!-- 
+    Product Management Index
+    Description: Lists all products with Search, Filter, and Categories.
+    Allows Admin to Add, Edit, or Delete products.
+-->
+<div class="container my-5 pb-5">
     <!-- Page Header -->
-    <div class="bg-white rounded-xl shadow-sm p-6 mb-6 border border-gray-200">
-        <div class="flex justify-between items-center">
+    <div class="card bg-dark-card border border-secondary mb-5">
+        <div class="card-body p-4 d-flex justify-content-between align-items-center">
             <div>
-                <h2 class="text-3xl font-bold text-gray-800">Product Management</h2>
-                <p class="text-gray-500 mt-1">Manage your inventory and product details</p>
+                <h2 class="fw-bold text-white mb-1">Product Management</h2>
+                <p class="text-muted mb-0">Manage your inventory and product details</p>
             </div>
-            <a class="flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold rounded-lg shadow-md transition duration-200 transform hover:scale-105" 
-               href="{{ route('products.create') }}">
-                <i class="fas fa-plus"></i>
-                <span>Create New Product</span>
+            <a href="{{ route('products.create') }}" class="btn btn-primary d-flex align-items-center gap-2">
+                <i class="fas fa-plus"></i> Create New Product
             </a>
         </div>
     </div>
-   
+
+    <!-- Search & Filter -->
+    <div class="card bg-dark-card border border-secondary mb-4 overflow-visible" style="position: relative; z-index: 50;">
+        <div class="card-body p-3">
+             <div class="row g-3">
+                  <div class="col-md-7 position-relative">
+                      <input type="text" id="searchInput" class="form-control bg-dark border-secondary text-white" placeholder="Search by name..." autocomplete="off">
+                      {{-- Autocomplete Dropdown --}}
+                      <div id="searchDropdown" class="list-group position-absolute w-100 shadow-lg" style="display:none; z-index: 1050; top: 100%; left: 0; background: #0F1219; border: 1px solid rgba(255,255,255,0.1); max-height: 300px; overflow-y: auto;"></div>
+                  </div>
+                  <div class="col-md-5">
+                      <select id="categoryFilter" class="form-select bg-dark border-secondary text-white">
+                          <option value="">All Categories</option>
+                          @foreach($categories as $cat)
+                            <option value="{{ $cat }}">{{ $cat }}</option>
+                          @endforeach
+                      </select>
+                  </div>
+              </div>
+        </div>
+    </div>
+
     <!-- Success Message -->
     @if ($message = Session::get('success'))
-        <div class="bg-green-50 border-l-4 border-green-500 text-green-800 p-4 rounded-lg mb-6 shadow-sm">
-            <div class="flex items-center gap-2">
-                <i class="fas fa-check-circle text-green-500"></i>
-                <p class="font-medium">{{ $message }}</p>
-            </div>
+        <div class="alert alert-success d-flex align-items-center mb-4" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
+            <div>{{ $message }}</div>
         </div>
     @endif
-   
+
     <!-- Products Table -->
-    <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200">
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gradient-to-r from-gray-50 to-gray-100">
+    <div class="card bg-dark-card border border-secondary overflow-hidden">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle mb-0">
+                <thead class="border-bottom border-secondary">
                     <tr>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">ID</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Image</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Name</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Description</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Price</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Stock</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+                        <th class="py-3 ps-4">ID</th>
+                        <th class="py-3">Image</th>
+                        <th class="py-3">Name</th>
+                        <th class="py-3">Description</th>
+                        <th class="py-3">Category</th>
+                        <th class="py-3">Price</th>
+                        <th class="py-3">Stock</th>
+                        <th class="py-3 text-center">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
+                <tbody class="divide-y divide-gray-700" id="productsTableBody">
                     @foreach ($products as $product)
-                    <tr class="hover:bg-gray-50 transition duration-150">
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $product->id }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">
+                    <tr>
+                        <td class="ps-4 fw-bold text-muted">#{{ $product->id }}</td>
+                        <td>
                             <img src="{{ filter_var($product->image, FILTER_VALIDATE_URL) ? $product->image : '/images/' . $product->image }}" 
-                                 class="w-16 h-16 rounded-lg object-cover shadow-sm border border-gray-200" 
+                                 class="rounded border border-secondary" 
+                                 style="width: 60px; height: 60px; object-fit: cover;" 
                                  alt="{{ $product->name }}">
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm font-semibold text-gray-900">{{ $product->name }}</div>
+                        <td class="fw-bold text-white">{{ $product->name }}</td>
+                        <td class="text-muted" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            {{ $product->description }}
                         </td>
-                        <td class="px-6 py-4">
-                            <div class="text-sm text-gray-600 max-w-xs truncate">{{ $product->description }}</div>
+                        <td>
+                            <span class="badge bg-secondary text-white border border-secondary">
+                                {{ $product->category ?? 'Uncategorized' }}
+                            </span>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="text-sm font-semibold text-indigo-600">PKR {{ number_format($product->price) }}</span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full {{ $product->stock > 10 ? 'bg-green-100 text-green-800' : ($product->stock > 0 ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800') }}">
+                        <td class="text-primary fw-bold">Rs {{ number_format($product->price) }}</td>
+                        <td>
+                            <span class="badge {{ $product->stock > 10 ? 'bg-success' : ($product->stock > 0 ? 'bg-warning text-dark' : 'bg-danger') }}">
                                 {{ $product->stock }} units
                             </span>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <div class="flex items-center gap-2">
-                                <a href="{{ route('products.edit',$product->id) }}" 
-                                   class="inline-flex items-center gap-1 px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition duration-150 shadow-sm">
-                                    <i class="fas fa-edit text-xs"></i>
-                                    <span>Edit</span>
+                        <td class="text-center">
+                            <form id="delete-product-{{ $product->id }}" action="{{ route('products.destroy',$product->id) }}" method="POST">
+                                <a href="{{ route('products.edit',$product->id) }}" class="btn btn-sm btn-primary me-2">
+                                    <i class="fas fa-edit"></i> Edit
                                 </a>
-                                <form action="{{ route('products.destroy',$product->id) }}" method="POST" class="inline-block">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" 
-                                            onclick="return confirm('Are you sure you want to delete this product?')"
-                                            class="inline-flex items-center gap-1 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition duration-150 shadow-sm">
-                                        <i class="fas fa-trash text-xs"></i>
-                                        <span>Delete</span>
-                                    </button>
-                                </form>
-                            </div>
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete('delete-product-{{ $product->id }}')">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
@@ -89,5 +108,130 @@
             </table>
         </div>
     </div>
-  
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function confirmDelete(formId) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!',
+            background: '#1f2937', 
+            color: '#fff'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById(formId).submit();
+            }
+        })
+    }
+
+    $(document).ready(function() {
+        
+        // AJAX Search Functionality
+        // Filters products by Name and Category
+        function performSearch() {
+            let query = $('#searchInput').val();
+            let category = $('#categoryFilter').val();
+
+            $.ajax({
+                url: "{{ route('products.search') }}",
+                type: "GET",
+                data: { query: query, category: category },
+                success: function(response) {
+                    // 1. Update Dropdown
+                    let dropdownHtml = '';
+                    if(query.length > 0 && response.length > 0) {
+                         response.forEach(product => {
+                            let imageUrl = product.image;
+                            if (!imageUrl.startsWith('http')) {
+                                imageUrl = '/images/' + imageUrl;
+                            }
+                            // Link to Edit page for Admin convenience
+                            dropdownHtml += `
+                                <a href="/products/${product.id}/edit" class="list-group-item list-group-item-action d-flex align-items-center gap-3 text-white" style="background: #0F1219; border-color: rgba(255,255,255,0.1);">
+                                    <img src="${imageUrl}" class="rounded" style="width: 40px; height: 40px; object-fit: cover;">
+                                    <div>
+                                        <h6 class="mb-0 fw-bold">${product.name}</h6>
+                                        <small class="text-muted">Rs ${product.price}</small>
+                                    </div>
+                                </a>
+                            `;
+                        });
+                        $('#searchDropdown').html(dropdownHtml).show();
+                    } else {
+                        $('#searchDropdown').hide();
+                    }
+
+                    // 2. Update Table Body
+                    let tableHtml = '';
+                    if(response.length > 0) {
+                        response.forEach(product => {
+                            let imageUrl = product.image;
+                            if (!imageUrl.startsWith('http')) {
+                                imageUrl = '/images/' + imageUrl;
+                            }
+                            
+                            // Stock Badge Logic
+                            let stockBadgeClass = product.stock > 10 ? 'bg-success' : (product.stock > 0 ? 'bg-warning text-dark' : 'bg-danger');
+
+                            tableHtml += `
+                            <tr>
+                                <td class="ps-4 fw-bold text-muted">#${product.id}</td>
+                                <td>
+                                    <img src="${imageUrl}" class="rounded border border-secondary" style="width: 60px; height: 60px; object-fit: cover;" alt="${product.name}">
+                                </td>
+                                <td class="fw-bold text-white">${product.name}</td>
+                                <td class="text-muted" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    ${product.description || ''}
+                                </td>
+                                <td>
+                                    <span class="badge bg-secondary text-white border border-secondary">
+                                        ${product.category || 'Uncategorized'}
+                                    </span>
+                                </td>
+                                <td class="text-primary fw-bold">Rs ${new Intl.NumberFormat().format(product.price)}</td>
+                                <td>
+                                    <span class="badge ${stockBadgeClass}">
+                                        ${product.stock} units
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <form id="delete-product-${product.id}" action="/products/${product.id}" method="POST">
+                                        <a href="/products/${product.id}/edit" class="btn btn-sm btn-primary me-2">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete('delete-product-${product.id}')">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            `;
+                        });
+                    } else {
+                        tableHtml = '<tr><td colspan="8" class="text-center text-muted py-5">No products found matching your criteria.</td></tr>';
+                    }
+                    $('#productsTableBody').html(tableHtml);
+                }
+            });
+        }
+
+        $('#searchInput').on('keyup', performSearch);
+        $('#categoryFilter').on('change', performSearch);
+
+        // Hide dropdown when clicking outside
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('#searchInput').length && !$(e.target).closest('#searchDropdown').length) {
+                $('#searchDropdown').hide();
+            }
+        });
+    });
+</script>
 @endsection

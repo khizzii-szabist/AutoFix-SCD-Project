@@ -13,4 +13,11 @@
 
   </div>
 </div>
+  </div>
+</div>
+
+<script>
+    // Clear the cart on successful order
+    localStorage.removeItem('cart');
+</script>
 @endsection

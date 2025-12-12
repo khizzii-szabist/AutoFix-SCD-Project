@@ -1,87 +1,73 @@
-@extends('services.layout')
- 
+@extends('layout')
+
 @section('content')
+<!-- 
+    Service Management Index
+    Description: Lists available services for Admin management.
+-->
+<div class="container my-5 pb-5">
     <!-- Page Header -->
-    <div class="bg-white rounded-xl shadow-sm p-6 mb-6 border border-gray-200">
-        <div class="flex justify-between items-center">
+    <div class="card bg-dark-card border border-secondary mb-5">
+        <div class="card-body p-4 d-flex justify-content-between align-items-center">
             <div>
-                <h2 class="text-3xl font-bold text-gray-800">Service Management</h2>
-                <p class="text-gray-500 mt-1">Manage your services and details</p>
+                <h2 class="fw-bold text-white mb-1">Service Management</h2>
+                <p class="text-muted mb-0">Manage your services and details</p>
             </div>
-            <a class="flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold rounded-lg shadow-md transition duration-200 transform hover:scale-105" 
-               href="{{ route('admin.services.create') }}">
-                <i class="fas fa-plus"></i>
-                <span>Add New Service</span>
+            <a href="{{ route('admin.services.create') }}" class="btn btn-primary d-flex align-items-center gap-2">
+                <i class="fas fa-plus"></i> Add New Service
             </a>
         </div>
     </div>
-   
+
     <!-- Success Message -->
     @if ($message = Session::get('success'))
-        <div class="bg-green-50 border-l-4 border-green-500 text-green-800 p-4 rounded-lg mb-6 shadow-sm">
-            <div class="flex items-center gap-2">
-                <i class="fas fa-check-circle text-green-500"></i>
-                <p class="font-medium">{{ $message }}</p>
-            </div>
+        <div class="alert alert-success d-flex align-items-center mb-4" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
+            <div>{{ $message }}</div>
         </div>
     @endif
-   
+
     <!-- Services Table -->
-    <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200">
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gradient-to-r from-gray-50 to-gray-100">
+    <div class="card bg-dark-card border border-secondary overflow-hidden">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle mb-0">
+                <thead class="border-bottom border-secondary">
                     <tr>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">ID</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Image</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Name</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Description</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Price</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+                        <th class="py-3 ps-4">ID</th>
+                        <th class="py-3">Image</th>
+                        <th class="py-3">Name</th>
+                        <th class="py-3">Description</th>
+                        <th class="py-3">Price</th>
+                        <th class="py-3 text-center">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
+                <tbody class="divide-y divide-gray-700">
                     @foreach ($services as $service)
-                    <tr class="hover:bg-gray-50 transition duration-150">
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $service->id }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">
+                    <tr>
+                        <td class="ps-4 fw-bold text-muted">#{{ $service->id }}</td>
+                        <td>
                             @if(filter_var($service->image, FILTER_VALIDATE_URL))
-                                <img src="{{ $service->image }}" 
-                                     class="w-16 h-16 rounded-lg object-cover shadow-sm border border-gray-200" 
-                                     alt="{{ $service->name }}">
+                                <img src="{{ $service->image }}" class="rounded border border-secondary" style="width: 60px; height: 60px; object-fit: cover;" alt="{{ $service->name }}">
                             @else
-                                <img src="/images/{{ $service->image }}" 
-                                     class="w-16 h-16 rounded-lg object-cover shadow-sm border border-gray-200" 
-                                     alt="{{ $service->name }}">
+                                <img src="/images/{{ $service->image }}" class="rounded border border-secondary" style="width: 60px; height: 60px; object-fit: cover;" alt="{{ $service->name }}">
                             @endif
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm font-semibold text-gray-900">{{ $service->name }}</div>
+                        <td class="fw-bold text-white">{{ $service->name }}</td>
+                        <td class="text-muted" style="max-width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            {{ $service->description }}
                         </td>
-                        <td class="px-6 py-4">
-                            <div class="text-sm text-gray-600 max-w-xs truncate">{{ $service->description }}</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="text-sm font-semibold text-indigo-600">PKR {{ number_format($service->price) }}</span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <div class="flex items-center gap-2">
-                                <a href="{{ route('admin.services.edit',$service->id) }}" 
-                                   class="inline-flex items-center gap-1 px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition duration-150 shadow-sm">
-                                    <i class="fas fa-edit text-xs"></i>
-                                    <span>Edit</span>
+                        <td class="text-primary fw-bold">Rs {{ number_format($service->price) }}</td>
+                        <td class="text-center">
+                            <form id="delete-service-{{ $service->id }}" action="{{ route('admin.services.destroy',$service->id) }}" method="POST">
+                                <a href="{{ route('admin.services.edit',$service->id) }}" class="btn btn-sm btn-primary me-2">
+                                    <i class="fas fa-edit"></i> Edit
                                 </a>
-                                <form action="{{ route('admin.services.destroy',$service->id) }}" method="POST" class="inline-block">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" 
-                                            onclick="return confirm('Are you sure you want to delete this service?')"
-                                            class="inline-flex items-center gap-1 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition duration-150 shadow-sm">
-                                        <i class="fas fa-trash text-xs"></i>
-                                        <span>Delete</span>
-                                    </button>
-                                </form>
-                            </div>
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete('delete-service-{{ $service->id }}')">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
@@ -89,5 +75,25 @@
             </table>
         </div>
     </div>
-  
+</div>
 @endsection
+
+<script>
+    function confirmDelete(formId) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!',
+            background: '#1f2937', 
+            color: '#fff'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById(formId).submit();
+            }
+        })
+    }
+</script>

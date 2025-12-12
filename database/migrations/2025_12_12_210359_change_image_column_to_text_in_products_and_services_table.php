@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Change 'image' column to TEXT type to support longer paths/base64 if needed
+        // redundant migration to ensure image column is text
         Schema::table('products', function (Blueprint $table) {
             $table->text('image')->nullable()->change();
         });
-
         Schema::table('services', function (Blueprint $table) {
             $table->text('image')->nullable()->change();
         });
@@ -29,7 +28,6 @@ return new class extends Migration
         Schema::table('products', function (Blueprint $table) {
             $table->string('image')->nullable()->change();
         });
-
         Schema::table('services', function (Blueprint $table) {
             $table->string('image')->nullable()->change();
         });

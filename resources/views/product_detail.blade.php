@@ -8,12 +8,13 @@
         </div>
         <div class="col-md-6">
             <h1 class="fw-bold">{{ $product->name }}</h1>
+            <span class="badge bg-primary mb-2">{{ $product->category ?? 'General' }}</span>
             <p class="text-muted fs-4">Rs {{ number_format($product->price) }}</p>
             <p class="lead">{{ $product->description }}</p>
             <p><strong>Stock:</strong> {{ $product->stock > 0 ? $product->stock . ' available' : 'Out of Stock' }}</p>
             
             <div class="mt-4">
-                <button class="btn btn-primary btn-lg" onclick="addToCart('{{ $product->name }}', {{ $product->price }})">Add to Cart</button>
+                <button class="btn btn-primary btn-lg" onclick="addToCart({{ $product->id }}, '{{ $product->name }}', {{ $product->price }}, 'product')">Add to Cart</button>
                 <a href="{{ url('/parts') }}" class="btn btn-outline-secondary btn-lg ms-2">Back to Parts</a>
             </div>
         </div>
@@ -22,9 +23,9 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-function addToCart(name, price) {
+function addToCart(id, name, price, type) {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  cart.push({ name: name, price: price });
+  cart.push({ id: id, name: name, price: price, type: type, quantity: 1 });
   localStorage.setItem('cart', JSON.stringify(cart));
   Swal.fire({
     title: "Added To Cart!",

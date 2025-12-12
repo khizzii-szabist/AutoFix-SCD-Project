@@ -7,50 +7,81 @@ use App\Http\Controllers\ProductController;
 
 use App\Models\Product;
 
+use App\Models\Service;
+
+// --- Public Pages ---
+
 Route::get('/', function () {
     $products = Product::take(3)->get();
-    return view('home', compact('products'));
+    $services = Service::take(3)->get();
+    return view('home', compact('products', 'services'));
 })->name('home');
 
+// Seed Categories Helper (Dev Utility)
+Route::get('/seed-categories', function() {
+    $products = Product::all();
+    foreach($products as $product) {
+        $category = 'Components'; // Default
+        if (stripos($product->name, 'tire') !== false || stripos($product->name, 'wheel') !== false) {
+            $category = 'Wheels & Tires';
+        } elseif (stripos($product->name, 'chain') !== false || stripos($product->name, 'derailleur') !== false || stripos($product->name, 'brake') !== false) {
+            $category = 'Drivetrain';
+        } elseif (stripos($product->name, 'saddle') !== false || stripos($product->name, 'seat') !== false) {
+            $category = 'Seating';
+        } elseif (stripos($product->name, 'handlebar') !== false) {
+            $category = 'Steering';
+        }
+        $product->category = $category;
+        $product->save();
+    }
+    return "Categories Seeded!";
+});
+
+// Service Pages
 Route::get('/services', [App\Http\Controllers\ServiceController::class, 'frontend'])->name('services');
 
 Route::get('/contact', function () {
     return view('contact');
 });
 
+// --- Cart & Checkout Flow ---
 Route::get('/cart', function () {
     return view('cart');
 })->name('cart');
 
 Route::get('/book', function () {
     $service = request('service');
-    return view('book', compact('service'));
+    $id = request('id');
+    return view('book', compact('service', 'id'));
 })->name('book');
 
 Route::get('/checkout', function () {
     return view('checkout');
 })->name('checkout');
 
-Route::post('/checkout', function () {
-    return redirect()->route('thankyou');
-})->name('checkout.submit');
+Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'store'])->name('checkout.submit');
 
 Route::get('/thankyou', function () {
     return view('thankyou');
 })->name('thankyou');
 
+// --- Product Catalog & Search ---
 Route::get('/parts', [ProductController::class, 'frontend']);
+Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
 Route::get('/product/{id}', [ProductController::class, 'showDetail'])->name('product.detail');
 
+// --- Admin Protected Routes ---
 Route::middleware('auth')->group(function () {
     Route::resource('products', ProductController::class);
     Route::resource('admin/services', App\Http\Controllers\ServiceController::class)->names('admin.services');
 });
 
+// --- Dashboard ---
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// --- Profile Management ---
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -58,3 +89,4 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+

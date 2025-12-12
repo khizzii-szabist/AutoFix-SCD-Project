@@ -36,25 +36,29 @@ function addBookingToCart() {
   let name = document.getElementById('serviceName').textContent.trim();
   let date = document.getElementById('bookingDate').value;
   let time = document.getElementById('bookingTime').value;
-  let price = 2500; // default or pass dynamically
+  let price = 2500; 
+  let id = "{{ $id ?? '' }}"; // Get ID from Blade
 
   if (!date || !time) {
-    //alert("Please select both date and time before adding to cart!");
     Swal.fire("Please select both date and time before adding to cart!");
     return;
   }
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-  // Include both date and time in description
+  // Include id, date, time, and type='service'
   cart.push({ 
+    id: id,
     name: `${name} (Booking: ${date} at ${time})`, 
-    price: price 
+    price: price,
+    type: 'service',
+    booking_date: date,
+    booking_time: time,
+    quantity: 1
   });
 
   localStorage.setItem('cart', JSON.stringify(cart));
 
-  // alert(`Booking for ${name} on ${date} at ${time} added to cart!`);
   Swal.fire(`Booking for ${name} on ${date} at ${time} added to cart!`);
 }
 </script>

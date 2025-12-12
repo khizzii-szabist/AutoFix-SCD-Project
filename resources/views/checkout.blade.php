@@ -63,6 +63,7 @@
       </div>
     </div>
 
+    <input type="hidden" name="cart_data" id="cart_data">
     <button type="submit" class="btn btn-success mt-3 w-100">Place Order</button>
     <a href="{{ route('cart') }}" class="btn btn-outline-secondary mt-2 w-100">Back to Cart</a>
   </form>
@@ -117,29 +118,23 @@ function toggleCardDetails() {
 }
 
 function handleCheckout(event) {
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  if (cart.length === 0) {
+  let cart = localStorage.getItem('cart');
+  let cartObj = JSON.parse(cart) || [];
+  
+  if (cartObj.length === 0) {
     event.preventDefault();
     Swal.fire("Cart is empty!", "Please add items before checkout.", "warning");
     return false;
   }
 
-  localStorage.removeItem('cart');
-  event.preventDefault(); // Stop form from submitting normally
-localStorage.removeItem('cart');
-
-Swal.fire({
-  title: "Order Placed Successfully!",
-  text: "Redirecting you to the thank you page...",
-  icon: "success",
-  showConfirmButton: false,
-  timer: 2000
-});
-
-setTimeout(() => {
-  window.location.href = "{{ route('thankyou') }}";
-}, 2000);
-
+  // Populate hidden input
+  document.getElementById('cart_data').value = cart;
+  
+  // Clear cart ONLY if submission is successful? 
+  // Actually, we should clear it after a successful redirect.
+  // But since we are submitting a form, the page will reload.
+  // We can clear it now, but if the server errors, the user loses their cart.
+  // Correct approach: Don't clear here. Clear on the 'thank you' page using JS.
 }
 
 window.onload = loadCheckoutTotal;

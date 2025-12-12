@@ -1,120 +1,309 @@
-main {
-  padding: 40px 60px;
-  min-height: 80vh;
+/* =========================================
+   ELECTRIC MIDNIGHT THEME - GLOBAL STYLES
+   ========================================= */
+
+/* --- 1. FONTS & VARIABLES --- */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* -- Colors -- */
+  --bg-body: #050511;
+  /* Deepest Midnight Blue */
+  --bg-card: #0F1219;
+  /* Dark Card Background */
+  --bg-glass: rgba(15, 18, 25, 0.65);
+  /* Glassmorphism Overlay */
+
+  --primary: #3B82F6;
+  /* Electric Blue */
+  --primary-dark: #2563eb;
+  --accent: #00F3FF;
+  /* Neon Cyan */
+  --accent-glow: rgba(0, 243, 255, 0.4);
+
+  --text-main: #FFFFFF;
+  --text-muted: #94A3B8;
+
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-glow: 0 0 15px rgba(59, 130, 246, 0.3);
+
+  /* -- Dimensions & Spacing -- */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  /* -- Transitions -- */
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@media (max-width: 768px) {
-  main {
-    padding: 20px;
-  }
-}
-/* ===== HERO SECTION ===== */
-.hero-section {
-  position: relative;
-  background-image: url('https://images.unsplash.com/photo-1449426468159-d96dbf08f19f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bW90b3JiaWtlfGVufDB8fDB8fHww&fm=jpg&q=60&w=3000');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 90vh;
-}
-
-.hero-section .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.55);
-}
-
-.hero-section .container {
-  position: relative;
-  z-index: 2;
-}
-
-.hero-section h1 {
-  font-size: 3rem;
-  color: #fff;
-}
-
-.hero-section p {
-  font-size: 1.2rem;
-  color: #ddd;
-}
-
-.hero-section .btn-primary {
-  background-color: #2563eb;
-  border: none;
-  padding: 12px 30px;
-  font-size: 1.1rem;
-  border-radius: 6px;
-  transition: background 0.3s ease;
-}
-
-.hero-section .btn-primary:hover {
-  background-color: #1e40af;
-}
-
-@media (max-width: 768px) {
-  .hero-section {
-    height: 70vh;
-  }
-  .hero-section h1 {
-    font-size: 2.2rem;
-  }
-  .hero-section p {
-    font-size: 1rem;
-  }
-}
-
-
-/* ===== CONTACT PAGE STYLES ===== */
-.contact-header {
-  position: relative;
-  /* background-image: url('../images/contact-bg.jpg'); */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  min-height: 50vh;
+/* --- 2. GLOBAL RESETS --- */
+body {
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  line-height: 1.6;
+  min-height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
 }
 
-.contact-header .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.55);
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
 }
 
-.contact-header .container {
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+main {
+  flex: 1;
+  padding: 40px 0;
+}
+
+/* --- 3. UTILITIES & ANIMATIONS --- */
+.text-primary {
+  color: var(--primary) !important;
+}
+
+.text-accent {
+  color: var(--accent) !important;
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+.bg-dark-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+}
+
+.glow-text {
+  text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+/* Glassmorphism Effect */
+.glass {
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* --- 4. NAVIGATION BAR --- */
+.navbar {
+  background: rgba(5, 5, 17, 0.85) !important;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
+  padding: 15px 0;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-main) !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.navbar-brand span {
+  color: var(--primary);
+}
+
+.nav-link {
+  color: var(--text-muted) !important;
+  font-weight: 500;
+  margin: 0 10px;
   position: relative;
-  z-index: 2;
+  transition: var(--transition);
 }
 
-.contact-header h1,
-.contact-header p {
-  color: #fff;
+.nav-link:hover,
+.nav-link.active {
+  color: var(--accent) !important;
+  text-shadow: 0 0 8px var(--accent-glow);
 }
 
-.card {
-  border-radius: 12px;
+/* Navbar Toggler */
+.navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
-.form-control:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.25);
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.7)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+
+/* --- 5. BUTTONS --- */
+.btn {
+  padding: 10px 24px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  border: none;
+  transition: var(--transition);
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
 }
 
 .btn-primary {
-  background-color: #2563eb;
-  border: none;
-  transition: background 0.3s ease;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
 }
 
 .btn-primary:hover {
-  background-color: #1e40af;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+  background: linear-gradient(135deg, #4F8EFF, #3B82F6);
+}
+
+.btn-outline-primary {
+  background: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+}
+
+.btn-outline-primary:hover {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+}
+
+/* --- 6. CARDS --- */
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-main);
+  transition: var(--transition);
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.card-title {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.card-text {
+  color: var(--text-muted);
+}
+
+/* --- 7. FORMS & INPUTS --- */
+.form-control {
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  border-radius: var(--radius-sm);
+  padding: 12px 15px;
+}
+
+.form-control:focus {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: var(--primary);
+  color: var(--text-main);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.form-select {
+  font-family: inherit;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+}
+
+.form-select:focus {
+  background-color: var(--bg-card);
+  border-color: var(--primary);
+  color: var(--text-main);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.form-select option {
+  background-color: var(--bg-card);
+  color: var(--text-main);
+}
+
+/* --- 8. TABLES --- */
+.table {
+  color: var(--text-muted);
+  border-color: var(--border-color);
+}
+
+.table th {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--text-main);
+  border-bottom: 2px solid var(--border-color);
+}
+
+.table td {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.table-hover tbody tr:hover {
+  color: var(--text-main);
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+
+/* --- 9. SPECIFIC PAGE STYLES --- */
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  /* Dark overlay on top of image */
+  background: linear-gradient(rgba(5, 5, 17, 0.7), rgba(5, 5, 17, 0.9)),
+    url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+  background-size: cover;
+  background-position: center;
+  padding: 100px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.hero-section h1 {
+  font-size: 3.5rem;
+  text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Footer */
+footer {
+  background-color: #020208 !important;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-muted) !important;
+}
+
+/* Utilities */
+.hover-accent:hover {
+  color: var(--accent) !important;
+  text-shadow: 0 0 10px var(--accent-glow);
+}
+
+.hover-white:hover {
+  color: var(--text-main) !important;
 }
