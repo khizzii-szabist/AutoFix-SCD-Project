@@ -64,4 +64,4 @@ The application exposes the following API endpoints:
 -   `DELETE /api/services/{id}`: Delete a service.
 
 ## Credits
-Developed by Khizar Iqbal Fazil for SCD Final Project.
+Developed by Khizar Iqbal Fazil for SCD Project.
